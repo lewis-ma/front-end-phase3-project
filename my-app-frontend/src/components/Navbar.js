@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-// import styled from "styled-components";
+import styled from "styled-components";
 
 function Navbar() {
   return (
@@ -21,29 +21,29 @@ function Navbar() {
   );
 }
 
-// const Nav = styled.nav`
-//   ul {
-//     display: flex;
-//     list-style: none;
-//     padding: 0;
-//     margin: 0;
-//   }
+const Nav = styled.nav`
+  ul {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
 
-//   li {
-//     margin-right: 10px;
-//   }
+  li {
+    margin-right: 10px;
+  }
 
-//   a {
-//     text-decoration: none;
-//     color: #000000;
-//     font-weight: bold;
-//     padding: 5px;
-//     border-radius: 4px;
+  a {
+    text-decoration: none;
+    color: #000000;
+    font-weight: bold;
+    padding: 5px;
+    border-radius: 4px;
 
-//     &:hover {
-//       background-color: #dddddd;
-//     }
-//   }
-// `;
+    &:hover {
+      background-color: #dddddd;
+    }
+  }
+`;
 
 export default Navbar;

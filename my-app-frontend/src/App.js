@@ -4,7 +4,7 @@ import About from "./components/About";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 import Loader from "./components/Loader";
-import Login from "./components/Login";
+//import Login from "./components/Login";
 import Navbar from "./components/Navbar";
 import Order from "./components/Order";
 import Restaurant from "./components/Restaurant";
@@ -13,14 +13,16 @@ function App() {
   return (
     <>
       <div className="App">
-        <Header />
         <Navbar />
+        <Header />
         <Routes>
           <Route path="/about" element={About} />
-          <Route path="/login" component={Login} />
+          {/* <Route path="/login" component={Login} /> */}
           <Route path="/order" component={Order} />
           <Route exact path="/" component={Restaurant} />
         </Routes>
+        <Restaurant />
+        <Order />
         <About />
         <Footer />
         <Loader />
