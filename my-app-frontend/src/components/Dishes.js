@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 const Dishes = () => {
   const [dishes, setDishes] = useState([]);
@@ -41,16 +42,6 @@ const Dishes = () => {
       });
   };
 
-  const handleOrderForm = () => {
-    // Code to show the order form goes here
-    // You can set a state or navigate to a different component
-    // to display the order form
-  };
-
-  if (error) {
-    return <ErrorMessage>{error}</ErrorMessage>;
-  }
-
   return (
     <Wrapper>
       <h2>Dishes</h2>
@@ -60,19 +51,17 @@ const Dishes = () => {
             <img src={dish.image} alt={dish.name} />
             <h3>{dish.name}</h3>
             <p>{dish.description}</p>
-            <p>Price: ${dish.price}</p> {/* Added line */}
-            <p>Location: {dish.location}</p> {/* Added line */}
+            <p>Price: ${dish.price}</p>
             <Button onClick={() => handleDeleteDish(dish.id)}>Delete</Button>
-            <Button onClick={handleOrderForm}>Order</Button>
+            <Link to="/order">
+              <Button>Order</Button>
+            </Link>
           </DishItem>
         ))}
       </DishesList>
     </Wrapper>
   );
 };
-
-
-
 
 const Wrapper = styled.div`
   text-align: center;
@@ -116,11 +105,6 @@ const Button = styled.button`
   &:hover {
     background-color: #c70039;
   }
-`;
-
-const ErrorMessage = styled.p`
-  color: red;
-  font-weight: bold;
 `;
 
 export default Dishes;

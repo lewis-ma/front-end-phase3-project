@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 const Restaurant = () => {
   const [restaurants, setRestaurants] = useState([]);
@@ -32,12 +33,6 @@ const Restaurant = () => {
       });
   };
 
-  const handleOrderForm = () => {
-    // Code to show the order form goes here
-    // You can set a state or navigate to a different component
-    // to display the order form
-  };
-
   return (
     <Wrapper>
       <h2>Restaurants</h2>
@@ -47,11 +42,13 @@ const Restaurant = () => {
             <img src={restaurant.image} alt={restaurant.name} />
             <h3>{restaurant.name}</h3>
             <p>{restaurant.description}</p>
-            <p>Location: {restaurant.location}</p> {/* Added line */}
+            <p>Location: {restaurant.location}</p>
             <Button onClick={() => handleDeleteRestaurant(restaurant.id)}>
               Delete
             </Button>
-            <Button onClick={handleOrderForm}>Order</Button>
+            <Link to="/order">
+              <Button>Order</Button>
+            </Link>
           </RestaurantItem>
         ))}
       </RestaurantList>
