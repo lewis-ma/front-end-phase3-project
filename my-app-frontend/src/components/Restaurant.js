@@ -85,7 +85,7 @@ const RestaurantItem = styled.div`
     margin-bottom: 0.5rem;
   }
   p {
-    color: #fff;
+    color: #000;
   }
 `;
 

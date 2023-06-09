@@ -87,7 +87,7 @@ const DishesList = styled.div`
 
 const DishItem = styled.div`
   padding: 1rem;
-  background-color: #f5f5f5;
+  background-color: #f5f5;
   border-radius: 5px;
   img {
     width: 100%;
@@ -100,13 +100,13 @@ const DishItem = styled.div`
     margin-bottom: 0.5rem;
   }
   p {
-    color: #777;
+    color: #000;
   }
 `;
 
 const Button = styled.button`
-  background-color: #ed215e;
-  color: #fff;
+  background-color: #ffff00;
+  color: #000;
   border: none;
   border-radius: 5px;
   padding: 0.5rem 1rem;

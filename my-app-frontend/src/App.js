@@ -17,16 +17,13 @@ function App() {
         <Navbar />
         <Header />
         <Routes>
-          <Route path="/about" element={<About />} />
+          <Route path="/" element={<About />} />
           {/* <Route path="/login" component={Login} /> */}
           <Route path="/order" element={<Order />} />
-          <Route exact path="/restaurant" component={Restaurant} />
-          <Route exact path="/dishes" component={Dishes} />
+          <Route path="/restaurants" element={<Restaurant />} />
+          <Route path="/dishes" element={<Dishes />} />
+          
         </Routes>
-        <Restaurant />
-        <Order />
-        <Dishes />
-        <About />
         <Footer />
         <Loader />
       </div>
