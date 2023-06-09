@@ -1,11 +1,12 @@
 import React from "react";
+import styled from "styled-components";
 
 const Title = () => {
-  return <h1 className="title">MENPHIS DELIVERY</h1>;
+  return <TitleText>MENPHIS DELIVERY</TitleText>;
 };
 
 const Subtitle = () => {
-  return <h2 className="subtitle">Free Delivery</h2>;
+  return <SubtitleText>Free Delivery</SubtitleText>;
 };
 
 const Header = () => {
@@ -13,34 +14,32 @@ const Header = () => {
     "https://img.freepik.com/free-photo/chicken-wings-barbecue-sweetly-sour-sauce-picnic-summer-menu-tasty-food-top-view-flat-lay_2829-6471.jpg";
 
   return (
-    <div
-      className="header"
-      style={{ backgroundImage: `url(${backgroundImageUrl})` }}
-    >
+    <HeaderWrapper style={{ backgroundImage: `url(${backgroundImageUrl})` }}>
       <Title />
       <Subtitle />
-    </div>
+    </HeaderWrapper>
   );
 };
 
-// .header {
-//   background-size: cover;
-//   background-position: center;
-//   text-align: center;
-//   padding: 20px;
-// }
+const HeaderWrapper = styled.div`
+  background-size: cover;
+  background-position: center;
+  text-align: center;
+  padding: 20px;
+  background-repeat: no-repeat;
+  height: 400px;
+`;
 
-// .title {
-//   font-size: 32px;
-//   color: #ffffff;
-//   margin-bottom: 10px;
-// }
+const TitleText = styled.h1`
+  font-size: 100px;
+  color: #000;
+  margin-bottom: 10px;
+`;
 
-// .subtitle {
-//   font-size: 18px;
-//   color: #ffffff;
-//   margin-bottom: 20px;
-// }
-
+const SubtitleText = styled.h2`
+  font-size: 50px;
+  color: #000;
+  margin-bottom: 20px;
+`;
 
 export default Header;

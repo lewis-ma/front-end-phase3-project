@@ -1,73 +1,100 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
+import styled from "styled-components";
 
-function Order() {
-  const [orders, setOrders] = useState([]);
+const Order = () => {
+  const [customerName, setCustomerName] = useState("");
+  const [dishName, setDishName] = useState("");
+  const [quantity, setQuantity] = useState("");
+  const [orderId, setOrderId] = useState(null);
 
-  useEffect(() => {
-    // Fetch order data from the backend API
-    fetch("http://localhost:9292/orders")
-      .then((response) => response.json())
-      .then((data) => setOrders(data));
-  }, []);
+  const handleOrder = async () => {
+    const response = await fetch("/orders", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        customer_name: customerName,
+        dish_name: dishName,
+        quantity: quantity,
+      }),
+    });
+    const data = await response.json();
+    setOrderId(data.id);
+  };
+
+  const handleDelete = async () => {
+    await fetch(`/order/${orderId}`, { method: "DELETE" });
+    setOrderId(null);
+  };
+
+  // Fetch data using fetch("http://localhost:9292/test")
+  fetch("http://localhost:9292/orders")
+    .then((r) => r.json())
+    .then((data) => console.log(data));
 
   return (
-    <div>
-      <h2>Orders</h2>
-      {orders.map((order) => (
-        <div
-          key={order.id}
-          style={{
-            width: "300px",
-            padding: "16px",
-            border: "1px solid #ccc",
-            borderRadius: "4px",
-            marginBottom: "16px",
-            boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
-          }}
-        >
-          <img
-            src={order.image}
-            alt={order.name}
-            style={{
-              width: "100%",
-              height: "200px",
-              objectFit: "cover",
-              borderRadius: "4px",
-              marginBottom: "16px",
-            }}
-          />
-          <h3
-            style={{
-              fontSize: "20px",
-              marginBottom: "8px",
-            }}
-          >
-            {order.name}
-          </h3>
-          <p
-            style={{
-              fontSize: "16px",
-              marginBottom: "16px",
-            }}
-          >
-            {order.description}
-          </p>
-          <button
-            style={{
-              padding: "8px 16px",
-              backgroundColor: "#007bff",
-              color: "#fff",
-              border: "none",
-              borderRadius: "4px",
-              cursor: "pointer",
-            }}
-          >
-            Like ({order.likes})
-          </button>
-        </div>
-      ))}
-    </div>
+    <OrderWrapper>
+      <InputLabel>
+        Customer Name:
+        <Input
+          type="text"
+          value={customerName}
+          onChange={(e) => setCustomerName(e.target.value)}
+        />
+      </InputLabel>
+      <br />
+      <InputLabel>
+        Dish Name:
+        <Input
+          type="text"
+          value={dishName}
+          onChange={(e) => setDishName(e.target.value)}
+        />
+      </InputLabel>
+      <br />
+      <InputLabel>
+        Quantity:
+        <Input
+          type="number"
+          value={quantity}
+          onChange={(e) => setQuantity(e.target.value)}
+        />
+      </InputLabel>
+      <br />
+      <Button onClick={handleOrder}>Order</Button>
+      {orderId && <Button onClick={handleDelete}>Delete Order</Button>}
+    </OrderWrapper>
   );
-}
+};
+
+const OrderWrapper = styled.div`
+  margin: 20px;
+`;
+
+const InputLabel = styled.label`
+  display: block;
+  margin-bottom: 10px;
+  font-weight: bold;
+`;
+
+const Input = styled.input`
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+`;
+
+const Button = styled.button`
+  margin-top: 10px;
+  padding: 8px 16px;
+  background-color: #ffff00;
+  color: #000;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #c31a4d;
+  }
+`;
 
 export default Order;

@@ -1,47 +1,94 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
-function Navbar() {
+const Navbar = () => {
+  const [isNavOpen, setIsNavOpen] = useState(false);
+
+  const html = document.querySelector("html");
+  html.addEventListener("click", (e) => setIsNavOpen(false));
+
   return (
-    <nav>
-      <ul>
-        <li>
-          <Link to="/order">Order</Link>
-        </li>
+    <Nav>
+      <div className={`links ${isNavOpen ? "show" : ""}`}>
+        <Link to="/" className="tag">
+          About
+        </Link>
 
-        <li>
-          <Link to="/restaurant">Restaurant</Link>
-        </li>
-        <li>
-          <Link to="/about">About</Link>
-        </li>
-      </ul>
-    </nav>
+        <a className="tag" href="order">
+          Order
+        </a>
+
+        <Link to="/form" className="tag">
+          Restaurant
+        </Link>
+        <Link to="/form" className="tag">
+          Dishes
+        </Link>
+      </div>
+    </Nav>
   );
-}
+};
 
 const Nav = styled.nav`
-  ul {
+  padding: 1rem 2rem 0.5rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #0e1118;
+  box-shadow: rgba(60, 64, 67, 1) 0px 1px 2px 0px,
+    rgba(60, 64, 67, 1) 0px 1px 3px 1px;
+  .links {
     display: flex;
-    list-style: none;
-    padding: 0;
-    margin: 0;
+    justify-content: space-between;
+    align-items: center;
+    .tag {
+      text-transform: capitalize;
+      text-decoration: none;
+      margin-right: 2rem;
+      color: #fff;
+      font-size: 1.2rem;
+      transition: all 0.3 ease-in-out;
+      cursor: pointer;
+      &:hover {
+        color: #ed215e;
+      }
+    }
   }
-
-  li {
-    margin-right: 10px;
-  }
-
-  a {
-    text-decoration: none;
-    color: #000000;
-    font-weight: bold;
-    padding: 5px;
-    border-radius: 4px;
-
-    &:hover {
-      background-color: #dddddd;
+  @media screen and (min-width: 280px) and (max-width: 768px) {
+    padding: 1rem 1rem 0.5rem 1rem;
+    .show {
+      opacity: 1 !important;
+      visibility: visible !important;
+    }
+    .links {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      flex-direction: column;
+      justify-content: center;
+      gap: 3rem;
+      align-content: flex-start;
+      align-items: center;
+      background-color: #000;
+      visibility: hidden;
+      .tag {
+        border-bottom: 2px solid #ed215e;
+        align-self: center;
+        color: #fff;
+        padding: 1rem 3rem;
+        border-radius: 5px;
+        font-weight: 600;
+        transition: all 0.2s ease-in-out;
+        margin: 0;
+        background: none;
+        &:hover {
+          background-color: #fff !important;
+          color: #ed215e;
+        }
+      }
     }
   }
 `;

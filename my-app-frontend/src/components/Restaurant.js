@@ -1,23 +1,28 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
+import styled from "styled-components";
 
-function Restaurant() {
+const Restaurant = () => {
   const [restaurants, setRestaurants] = useState([]);
 
   useEffect(() => {
-    // Fetch restaurant data from the backend API
     fetch("http://localhost:9292/restaurants")
       .then((response) => response.json())
-      .then((data) => setRestaurants(data));
+      .then((data) => {
+        setRestaurants(data);
+      })
+      .catch((error) => {
+        console.error("Error fetching restaurants:", error);
+      });
   }, []);
 
-  const handleDelete = (id) => {
-    // Send a DELETE request to the backend API to delete the restaurant
+  const handleDeleteRestaurant = (id) => {
+    // Delete the restaurant with the given id
     fetch(`http://localhost:9292/restaurants/${id}`, {
       method: "DELETE",
     })
       .then((response) => response.json())
-      .then(() => {
-        // Update the restaurant list after deletion
+      .then((data) => {
+        // Remove the deleted restaurant from the state
         setRestaurants(
           restaurants.filter((restaurant) => restaurant.id !== id)
         );
@@ -27,64 +32,75 @@ function Restaurant() {
       });
   };
 
-  const cardStyle = {
-    width: "300px",
-    padding: "16px",
-    border: "1px solid #ccc",
-    borderRadius: "4px",
-    marginBottom: "16px",
-    boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
-  };
-
-  const imageStyle = {
-    width: "100%",
-    height: "200px",
-    objectFit: "cover",
-    borderRadius: "4px",
-    marginBottom: "16px",
-  };
-
-  const titleStyle = {
-    fontSize: "20px",
-    marginBottom: "8px",
-  };
-
-  const descriptionStyle = {
-    fontSize: "16px",
-    marginBottom: "16px",
-  };
-
-  const buttonStyle = {
-    padding: "8px 16px",
-    backgroundColor: "#007bff",
-    color: "#fff",
-    border: "none",
-    borderRadius: "4px",
-    cursor: "pointer",
+  const handleOrderForm = () => {
+    // Code to show the order form goes here
+    // You can set a state or navigate to a different component
+    // to display the order form
   };
 
   return (
-    <div>
+    <Wrapper>
       <h2>Restaurants</h2>
-      {restaurants.map((restaurant) => (
-        <div key={restaurant.id} style={cardStyle}>
-          <img
-            src={restaurant.image}
-            alt={restaurant.name}
-            style={imageStyle}
-          />
-          <h3 style={titleStyle}>{restaurant.name}</h3>
-          <p style={descriptionStyle}>{restaurant.description}</p>
-          <button
-            onClick={() => handleDelete(restaurant.id)}
-            style={buttonStyle}
-          >
-            Delete
-          </button>
-        </div>
-      ))}
-    </div>
+      <RestaurantList>
+        {restaurants.map((restaurant) => (
+          <RestaurantItem key={restaurant.id}>
+            <img src={restaurant.image} alt={restaurant.name} />
+            <h3>{restaurant.name}</h3>
+            <p>{restaurant.description}</p>
+            <p>Location: {restaurant.location}</p> {/* Added line */}
+            <Button onClick={() => handleDeleteRestaurant(restaurant.id)}>
+              Delete
+            </Button>
+            <Button onClick={handleOrderForm}>Order</Button>
+          </RestaurantItem>
+        ))}
+      </RestaurantList>
+    </Wrapper>
   );
-}
+};
+
+const Wrapper = styled.div`
+  text-align: center;
+`;
+
+const RestaurantList = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-gap: 1rem;
+  margin-top: 2rem;
+`;
+
+const RestaurantItem = styled.div`
+  padding: 1rem;
+  background-color: #f5f5;
+  border-radius: 5px;
+  img {
+    width: 100%;
+    max-height: 200px;
+    object-fit: cover;
+    border-radius: 5px;
+    margin-bottom: 1rem;
+  }
+  h3 {
+    margin-bottom: 0.5rem;
+  }
+  p {
+    color: #fff;
+  }
+`;
+
+const Button = styled.button`
+  background-color: #ffff00;
+  color: #000;
+  border: none;
+  border-radius: 5px;
+  padding: 0.5rem 1rem;
+  margin-top: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+  &:hover {
+    background-color: #c70039;
+  }
+`;
 
 export default Restaurant;

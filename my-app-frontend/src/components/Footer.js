@@ -11,9 +11,7 @@ import {
 const Footer = () => {
   return (
     <div>
-      <div className="footer">
-        <h2></h2>
-      </div>
+      <div className="footer"></div>
       <div className="creator"> </div>
       <div className="foot">
         <li>
@@ -58,7 +56,7 @@ const Div = styled.div`
       height: 70px;
     }
     h2 {
-      color: #fff;
+      color: #ooo;
       font-size: 1.2rem;
     }
   }
