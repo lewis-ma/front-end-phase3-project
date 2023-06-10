@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import AddToCart from "./AddToCart";
 
 const Order = () => {
   const [customerName, setCustomerName] = useState("");
@@ -25,11 +26,6 @@ const Order = () => {
     await fetch(`/order/${orderId}`, { method: "DELETE" });
     setOrderId(null);
   };
-
-  // Fetch data using fetch("http://localhost:9292/test")
-  fetch("http://localhost:9292/orders")
-    .then((r) => r.json())
-    .then((data) => console.log(data));
 
   return (
     <OrderWrapper>
@@ -60,8 +56,17 @@ const Order = () => {
         />
       </InputLabel>
       <br />
-      <Button onClick={handleOrder}>Order</Button>
+      <Button onClick={handleOrder}>Add to Cart</Button>{" "}
+      {/* Changed button label */}
       {orderId && <Button onClick={handleDelete}>Delete Order</Button>}
+      {/* Pass order details to AddToCart component */}
+      {orderId && (
+        <AddToCart
+          customerName={customerName}
+          dishName={dishName}
+          quantity={quantity}
+        />
+      )}
     </OrderWrapper>
   );
 };

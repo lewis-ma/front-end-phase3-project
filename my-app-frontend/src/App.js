@@ -9,7 +9,7 @@ import Navbar from "./components/Navbar";
 import Order from "./components/Order";
 import Restaurant from "./components/Restaurant";
 import Dishes from "./components/Dishes";
-
+import AddToCart from "./components/AddToCart";
 function App() {
   return (
     <>
@@ -24,6 +24,7 @@ function App() {
           <Route path="/dishes" element={<Dishes />} />
           
         </Routes>
+        <AddToCart />
         <Footer />
         <Loader />
       </div>
